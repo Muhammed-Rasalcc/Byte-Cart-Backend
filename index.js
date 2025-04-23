@@ -7,7 +7,6 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000
 
-
 //middlewire setting
 app.use(express.json({limit: "25mb"}));
 app.use(express.urlencoded({limit: "25mb"}));
@@ -39,14 +38,14 @@ app.use('/api/stats', statsRoutes)
 
  main().then(() => console.log("mongodb is sucessfully connected")).catch(err => console.log(err));
 
+ app.get('/', (req, res) => {
+    res.send('Byte-Cart server is running ....')
+});
+
 async function main() {
     await mongoose.connect(process.env.DB_URl);
-
-    
-    app.get('/', (req, res) => {
-        res.send('Byte-Cart sever is running ....')
-    })
 }
+
 
 app.post('/uploadImage', (req ,res)=>{
     uploadImage(req.body.image)
